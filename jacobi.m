@@ -13,6 +13,8 @@ xx3 = zeros(nn,1);
 err1 = zeros(nn, 1);
 err2 = zeros(nn, 1);
 err3 = zeros(nn,1);
+
+tol=1e-6;
 % X(K)=JX(K-1)+C
 for i = 1:nn
     if i ==1
@@ -31,6 +33,13 @@ for i = 1:nn
       err1(i)=abs(xx1(i)-xx1(i-1));
       err2(i)=abs(xx2(i)-xx2(i-1));
       err3(i)=abs(xx3(i)-xx3(i-1));
+      if err1(i)<tol
+          if err2(i)<tol
+              if err3(i)<tol
+                  break
+              end
+          end
+      end
     end
 end
 XXX=[xx1,err1,xx2,err2,xx3,err3];
